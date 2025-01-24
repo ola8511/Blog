@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+<div class="container mt-4">
+<h1 class="mb-4">Dodaj nowy wpis</h1>
+<form method="post" action="{{ url_for('create_post') }}" enctype="multipart/form-data">
+<div class="mb-3">
+<label for="title" class="form-label">Tytuł</label>
+<input type="text" class="form-control" id="title" name="title" required>
+</div>
+<div class="mb-3">
+<label for="content" class="form-label">Treść</label>
+<textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+</div>
+<div class="mb-3">
+<label for="image" class="form-label">Zdjęcie (opcjonalne)</label>
+<input type="file" class="form-control" id="image" name="image" accept="image/*">
+</div>
+<button type="submit" class="btn btn-primary">Dodaj wpis</button>
+</form>
+</div>
+{% endblock %}

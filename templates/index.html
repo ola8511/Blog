@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+<div class="container mt-4">
+<h1 class="mb-4 text-center">Mój Blog</h1>
+<a href="{{ url_for('create_post') }}" class="btn btn-success mb-4">Dodaj nowy wpis</a>
+ 
+        {% for post in posts %}
+<div class="card mb-4">
+<div class="card-body">
+<h2 class="card-title">{{ post.title }}</h2>
+<p class="card-text">{{ post.content }}</p>
+{% if post.image %}
+        <img src="{{ url_for('static', filename='uploads/' + post.image) }}" alt="Post image" class="img-fluid mt-3 rounded post-image">
+{% endif %}
+<p class="text-muted mt-3">
+                        Data dodania: {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+<br>Autor: {{ post.user_id }}
+</p>
+<a href="{{ url_for('post_detail', post_id=post.id) }}" class="btn btn-primary">Komentarze</a>
+                    {% if post.user_id == current_user.get_id() %}
+<form method="post" action="{{ url_for('delete_post', post_id=post.id) }}" class="mt-3">
+<button type="submit" class="btn btn-danger">Usuń</button>
+</form>
+                    {% endif %}
+</div>
+</div>
+        {% endfor %}
+</div>
+{% endblock %}
